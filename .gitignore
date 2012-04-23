@@ -1,7 +1,7 @@
 // * cgx 17817
 ////////////////////////////////////// 
 if(!gsec){
-  var gsec = {
+	var gsec = {
 		included : new Object(),
 		onLoadFn: "",
 		img_server : "https://sites.google.com/site/picthst17817/soht",
@@ -22,9 +22,15 @@ if(!gsec){
 				if(!this.included[arguments[i]]){
 					this.included[arguments[i]] = "included";
 					//t.getHours()
-					var src = (arguments[i].indexOf(this.img_server) > -1) ? arguments[i] : this.img_server + arguments[i];
-					if(arguments[i].indexOf("absolute:") > -1) src = arguments[i].replace("absolute:","");
-					var str = '<scr'+'ipt type="text/javascript" src="'  + src + '"></scr'+'ipt>';
+					var src = (arguments[i].indexOf(this.img_server) 
+
+> -1) ? arguments[i] : this.img_server + arguments[i];
+					if(arguments[i].indexOf("absolute:") > -1) src = 
+
+arguments[i].replace("absolute:","");
+					var str = '<scr'+'ipt type="text/javascript" 
+
+src="'  + src + '"></scr'+'ipt>';
 					document.writeln(str);
 				}
 			}
@@ -58,7 +64,9 @@ var $cache_mode = true;
 var Class = function(properties){
 	var klass = function(){
 		for (p in this) this[p]._proto_ = this;
-		if (arguments[0] != 'noinit' && this.initialize) return this.initialize.apply(this, arguments);
+		if (arguments[0] != 'noinit' && this.initialize) return 
+
+this.initialize.apply(this, arguments);
 	};
 	klass.extend = this.extend;
 	klass.implement = this.implement;
@@ -78,14 +86,18 @@ Class.prototype = {
 		for (property in properties){
 			var previous = prototype[property];
 			var current = properties[property];
-			if (previous && previous != current) current = previous.parentize(current) || current;
+			if (previous && previous != current) current = 
+
+previous.parentize(current) || current;
 			prototype[property] = current;
 		}
 		return new Class(prototype);
 	},
 
 	implement: function(properties){
-		for (property in properties) this.prototype[property] = properties[property];
+		for (property in properties) this.prototype[property] = 
+
+properties[property];
 	}
 }
 
@@ -93,7 +105,9 @@ Class.prototype = {
 var getClient ={
 	init : function(){
 		var userAgent = navigator.userAgent.toLowerCase();
-		var browser = {IE : /msie/.test(userAgent),FF :/gecko/.test(userAgent),OP:/opera/.test(userAgent)};
+		var browser = {IE : /msie/.test(userAgent),FF 
+
+:/gecko/.test(userAgent),OP:/opera/.test(userAgent)};
 		for(var prop in browser){if(browser[prop]){this.agent = prop;break;}}
 		if(this.agent == "")this.agent = "IE";
 	}
@@ -115,7 +129,9 @@ var EventManager = {
 	},
 	removeEvent: function(el,action, fn){
 		try{
-			if (el.removeEventListener) el.removeEventListener(action, fn, false);
+			if (el.removeEventListener) el.removeEventListener(action, fn, 
+
+false);
 			else el.detachEvent('on'+action, el[action+fn]);
 			return el;
 		}catch(e){
@@ -132,7 +148,9 @@ Object.extend = function(){
 };
 
 Object.Native = function(){
-	for (var i = 0; i < arguments.length; i++) arguments[i].extend = Class.prototype.implement;
+	for (var i = 0; i < arguments.length; i++) arguments[i].extend = 
+
+Class.prototype.implement;
 };
 
 new Object.Native(Function, Array, String);
@@ -221,7 +239,9 @@ var Chain = new Class({
 		return this;
 	},
 	callChain: function(){
-		if (this.chains && this.chains.length) this.chains.splice(0, 1)[0].delay(10, this);
+		if (this.chains && this.chains.length) this.chains.splice(0, 
+
+1)[0].delay(10, this);
 	}
 
 });
@@ -303,7 +323,9 @@ String.extend({
 		return s;
 	},
 	rgbToHex: function(array){
-		var rgb = this.test('^[rgba]{3,4}\\(([\\d]{0,3}),[\\s]*([\\d]{0,3}),[\\s]*([\\d]{0,3})\\)$');
+		var rgb = 
+
+this.test('^[rgba]{3,4}\\(([\\d]{0,3}),[\\s]*([\\d]{0,3}),[\\s]*([\\d]{0,3})\\)$');
 		var hex = [];
 		for (var i = 1; i < rgb.length; i++) hex.push((rgb[i]-0).toString(16));
 		var hexText = '#'+hex.join('');
@@ -333,8 +355,12 @@ var Element = new Class({
 		switch(where){
 			case "before": $(el.parentNode).insertBefore(this, el); break;
 			case "after": {
-					if (!el.getNext()) $(el.parentNode).appendChild(this);
-					else $(el.parentNode).insertBefore(this, el.getNext());
+					if (!el.getNext()) 
+
+$(el.parentNode).appendChild(this);
+					else $(el.parentNode).insertBefore(this, 
+
+el.getNext());
 			} break;
 			case "inside": el.appendChild(this); break;
 		}
@@ -366,7 +392,9 @@ var Element = new Class({
 		return el;
 	},
 	appendText: function(text){
-		if (this.getTag() == 'style' && window.ActiveXObject) this.styleSheet.cssText = text;
+		if (this.getTag() == 'style' && window.ActiveXObject) 
+
+this.styleSheet.cssText = text;
 		else this.appendChild(document.createTextNode(text));
 		return this;
 	},
@@ -374,15 +402,21 @@ var Element = new Class({
 		return $check(this.className.test("\\b"+className+"\\b"), true);
 	},
 	addClassName: function(className){
-		if (!this.hasClassName(className)) this.className = (this.className+' '+className.trim()).clean();
+		if (!this.hasClassName(className)) this.className = (this.className+' 
+
+'+className.trim()).clean();
 		return this;
 	},
 	removeClassName: function(className){
-		if (this.hasClassName(className)) this.className = this.className.replace(className.trim(), '').clean();
+		if (this.hasClassName(className)) this.className = 
+
+this.className.replace(className.trim(), '').clean();
 		return this;
 	},
 	toggleClassName: function(className){
-		if (this.hasClassName(className)) return this.removeClassName(className);
+		if (this.hasClassName(className)) return 
+
+this.removeClassName(className);
 		else return this.addClassName(className);
 	},
 	setStyle: function(property, value){
@@ -400,14 +434,24 @@ var Element = new Class({
 	},
 	setStyles: function(source){
 		if ($type(source) == 'object') {
-			for (property in source) this.setStyle(property, source[property]);
-		} else if ($type(source) == 'string') this.setAttribute('style', source);
+			for (property in source) this.setStyle(property, 
+
+source[property]);
+		} else if ($type(source) == 'string') this.setAttribute('style', 
+
+source);
 		return this;
 	},
 	setOpacity: function(opacity){
-		if (opacity == 0 && this.style.visibility != "hidden") this.style.visibility = "hidden";
-		else if (this.style.visibility != "visible") this.style.visibility = "visible";
-		if (window.ActiveXObject) this.style.filter = "alpha(opacity=" + opacity*100 + ")";
+		if (opacity == 0 && this.style.visibility != "hidden") 
+
+this.style.visibility = "hidden";
+		else if (this.style.visibility != "visible") this.style.visibility = 
+
+"visible";
+		if (window.ActiveXObject) this.style.filter = "alpha(opacity=" + 
+
+opacity*100 + ")";
 		this.style.opacity = opacity;
 		return this;
 	},
@@ -415,10 +459,14 @@ var Element = new Class({
 		var proPerty = property.camelCase();
 		var style = $check(this.style[proPerty]);
 		if (!style) {
-			if (document.defaultView) style = document.defaultView.getComputedStyle(this,null).getPropertyValue(property);
+			if (document.defaultView) style = 
+
+document.defaultView.getComputedStyle(this,null).getPropertyValue(property);
 			else if (this.currentStyle) style = this.currentStyle[proPerty];
 		}
-		if (style && ['color', 'backgroundColor', 'borderColor'].test(proPerty) && style.test('rgb')) style = style.rgbToHex();
+		if (style && ['color', 'backgroundColor', 'borderColor'].test(proPerty) 
+
+&& style.test('rgb')) style = style.rgbToHex();
 		if (['auto', 'transparent'].test(style)) style = 0;
 		if (num) return parseInt(style);
 		else return style;
@@ -462,10 +510,16 @@ var Element = new Class({
 		switch(property){
 			case 'class': this.className = value; break;
 			case 'style': this.setStyles(value); break;
-			case 'name': if (window.ActiveXObject && this.getTag() == 'input'){
-				el = $(document.createElement('<input name="'+value+'" />'));
+			case 'name': if (window.ActiveXObject && this.getTag() == 
+
+'input'){
+				el = $(document.createElement('<input name="'+value+'" 
+
+/>'));
 				$A(this.attributes).each(function(attribute){
-					if (attribute.name != 'name') el.setProperty(attribute.name, attribute.value);
+					if (attribute.name != 'name') 
+
+el.setProperty(attribute.name, attribute.value);
 
 				});
 				if (this.parentNode) this.replaceWith(el);
@@ -526,7 +580,9 @@ function $(el){
 	if ($type(el) == 'string'){
 		if(!mooObjContainer[el] || !$cache_mode){
 			if(arguments[1] == 'swf'){
-				el  = getClient.agent == 'IE' ? window[el] : document[el];
+				el  = getClient.agent == 'IE' ? window[el] : 
+
+document[el];
 			}else{
 				el = document.getElementById(el);
 			}
@@ -596,7 +652,9 @@ Fx.Base = new Class({
 			this.options.onComplete.pass(this.el, this).delay(10);
 			this.callChain();
 		} else {
-			this.tPos = (currentTime - this.startTime) / this.options.duration;
+			this.tPos = (currentTime - this.startTime) / 
+
+this.options.duration;
 			this.setNow();
 		}
 		this.increase();
@@ -614,7 +672,9 @@ Fx.Base = new Class({
 		this.from = from;
 		this.to = to;
 		this.startTime = (new Date).getTime();
-		this.timer = this.step.periodical(Math.round(1000/this.options.fps), this);
+		this.timer = this.step.periodical(Math.round(1000/this.options.fps), 
+
+this);
 		return this;
 	},
 	set: function(to){
@@ -628,7 +688,9 @@ Fx.Base = new Class({
 	},
 	setStyle: function(el, property, value){
 		if (property == 'opacity'){
-			if (value == 1 && navigator.userAgent.test('Firefox')) value = 0.9999;
+			if (value == 1 && navigator.userAgent.test('Firefox')) value = 
+
+0.9999;
 			el.setOpacity(value);
 		} else el.setStyle(property, value+this.options.unit);
 	}
@@ -662,7 +724,9 @@ Fx.Layout = Fx.Style.extend({
 		this.el.setStyle('overflow', 'hidden');
 	},
 	toggle: function(){
-		if (this.el['offset'+this.layout] > 0) return this.custom(this.el['offset'+this.layout], 0);
+		if (this.el['offset'+this.layout] > 0) return 
+
+this.custom(this.el['offset'+this.layout], 0);
 		else return this.custom(0, this.el['scroll'+this.layout]);
 	},
 	show: function(){
@@ -677,7 +741,9 @@ Fx.Scroll = Fx.Base.extend({
 		this.setOptions(options);
 	},
 	down: function(){
-		return this.custom(this.element.scrollTop, this.element.scrollHeight-this.element.offsetHeight);
+		return this.custom(this.element.scrollTop, 
+
+this.element.scrollHeight-this.element.offsetHeight);
 	},
 	up: function(){
 		return this.custom(this.element.scrollTop, 0);
@@ -741,12 +807,16 @@ Fx.sineOut = function(pos){return Math.sin(pos * (Math.PI/2))};
 Fx.sineIn = function(pos){return -Math.cos(pos * (Math.PI/2)) + 1};
 Fx.sineInOut = function(pos){return -(Math.cos(Math.PI*pos) - 1)/2};
 Fx.wobble = function(pos){return (-Math.cos(pos*Math.PI*(9*pos))/2) + 0.5};
-Fx.pulse = function(pos){return (Math.floor(pos*10) % 2 == 0 ? (pos*10-Math.floor(pos*10)) : 1-(pos*10-Math.floor(pos*10)))};
+Fx.pulse = function(pos){return (Math.floor(pos*10) % 2 == 0 ? 
+
+(pos*10-Math.floor(pos*10)) : 1-(pos*10-Math.floor(pos*10)))};
 
 function $S(){
 	var els = [];
 	$A(arguments).each(function(sel){
-		if ($type(sel) == 'string') els.extend(document.getElementsBySelector(sel));
+		if ($type(sel) == 'string') 
+
+els.extend(document.getElementsBySelector(sel));
 		else if ($type(sel) == 'element') els.push($(sel));
 	});
 	return $$(els);
@@ -772,7 +842,11 @@ Element.extend({
 				if (bits[1] == '.') param['class'] = bits[2];
 				else param['id'] = bits[2];
 			}
-			if (bits = sel.test('\\[["\'\\s]{0,1}([\\w-]*)["\'\\s]{0,1}([\\W]{0,1}=){0,2}["\'\\s]{0,1}([\\w-]*)["\'\\s]{0,1}\\]$')){
+			if (bits = 
+
+sel.test('\\[["\'\\s]{0,1}([\\w-]*)["\'\\s]{0,1}([\\W]{0,1}=){0,2}["\'\\s]{0,1}([\\w-]*)
+
+["\'\\s]{0,1}\\]$')){
 				attr['name'] = bits[1];
 				attr['operator'] = bits[2];
 				attr['value'] = bits[3];
@@ -780,17 +854,27 @@ Element.extend({
 			if (i == 0){
 				if (param['id']){
 					var el = this.getElementById(param['id']);
-					if (el && (param['tag'] == '*' || $(el).getTag() == param['tag'])) filters = [el];
+					if (el && (param['tag'] == '*' || $(el).getTag() 
+
+== param['tag'])) filters = [el];
 					else return false;
 				} else {
-					filters = $A(this.getElementsByTagName(param['tag']));
+					filters = 
+
+$A(this.getElementsByTagName(param['tag']));
 				}
 			} else {
 				filters = $$(filters).filterByTagName(param['tag']);
-				if (param['id']) filters = $$(filters).filterById(param['id']);
+				if (param['id']) filters = 
+
+$$(filters).filterById(param['id']);
 			}
-			if (param['class']) filters = $$(filters).filterByClassName(param['class']);
-			if (attr['name']) filters = $$(filters).filterByAttribute(attr['name'], attr['value'], attr['operator']);
+			if (param['class']) filters = 
+
+$$(filters).filterByClassName(param['class']);
+			if (attr['name']) filters = 
+
+$$(filters).filterByAttribute(attr['name'], attr['value'], attr['operator']);
 
 		}, this);
 		filters.each(function(el){
@@ -828,8 +912,12 @@ var Elements = new Class({
 			if (actions.initialize) actions.initialize.apply(el);
 			for(action in actions){
 				var evt = false;
-				if (action.test('^on[\\w]{1,}')) el[action] = actions[action];
-				else if (evt = action.test('([\\w-]{1,})event$')) el.addEvent(evt[1], actions[action]);
+				if (action.test('^on[\\w]{1,}')) el[action] = 
+
+actions[action];
+				else if (evt = action.test('([\\w-]{1,})event$')) 
+
+el.addEvent(evt[1], actions[action]);
 			}
 		});
 	},
@@ -863,7 +951,9 @@ var Elements = new Class({
 			switch(operator){
 				case '*=': if (att.test(value)) found.push(el); break;
 				case '=': if (att == value) found.push(el); break;
-				case '^=': if (att.test('^'+value)) found.push(el); break;
+				case '^=': if (att.test('^'+value)) found.push(el); 
+
+break;
 				case '$=': if (att.test(value+'$')) found.push(el);
 			}
 		});
@@ -897,17 +987,29 @@ var Ajax = ajax = new Class({
 		this.transport.open(this.options.method, this.url, this.options.async);
 		this.transport.onreadystatechange = this.onStateChange.bind(this);
 		if (this.options.method == 'post'){
-			this.transport.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			this.transport.setRequestHeader('Content-type', 
+
+'application/x-www-form-urlencoded');
 			if(this.options.addReq.length > 1){
 				for(var i=0;i< this.options.addReq.length;i++){
-					this.transport.setRequestHeader(this.options.addReq[i]['key'],this.options.addReq[i]['value']);
+					
+
+this.transport.setRequestHeader(this.options.addReq[i]['key'],this.options.addReq[i]['va
+
+lue']);
 				}
 			}
-			if (this.transport.overrideMimeType) this.transport.setRequestHeader('Connection', 'close');
+			if (this.transport.overrideMimeType) 
+
+this.transport.setRequestHeader('Connection', 'close');
 		}
 		switch($type(this.options.postBody)){
-			case 'element': this.options.postBody = $(this.options.postBody).toQueryString(); break;
-			case 'object': this.options.postBody = Object.toQueryString(this.options.postBody);
+			case 'element': this.options.postBody = 
+
+$(this.options.postBody).toQueryString(); break;
+			case 'object': this.options.postBody = 
+
+Object.toQueryString(this.options.postBody);
 		}
 		debug.log(this.options.postBody);
 		this.transport.send(this.options.postBody);
@@ -916,9 +1018,15 @@ var Ajax = ajax = new Class({
 	onStateChange: function(){
 		this.options.onStateChange.delay(10, this);
 		if (this.transport.readyState != 4) return;
-		if (!this.transport.status || (this.transport.status >= 200 && this.transport.status < 300)){
-			if (this.options.update) $(this.options.update).setHTML(this.transport.responseText);
-			this.options.onComplete.pass([this.transport.responseText, this.transport.responseXML], this).delay(20);
+		if (!this.transport.status || (this.transport.status >= 200 && 
+
+this.transport.status < 300)){
+			if (this.options.update) 
+
+$(this.options.update).setHTML(this.transport.responseText);
+			this.options.onComplete.pass([this.transport.responseText, 
+
+this.transport.responseXML], this).delay(20);
 			if (this.options.evalScripts) this.evalScripts.delay(30, this);
 			//cache
 			mooObjContainer = "";
@@ -927,15 +1035,21 @@ var Ajax = ajax = new Class({
 		this.callChain();
 	},
 	evalScripts: function(){
-		if(scripts = this.transport.responseText.match(/<script[^>]*?>[\S\s]*?<\/script>/g)){
+		if(scripts = 
+
+this.transport.responseText.match(/<script[^>]*?>[\S\s]*?<\/script>/g)){
 			scripts.each(function(script){
-				eval(script.replace(/^<script[^>]*?>/, '').replace(/<\/script>$/, ''));
+				eval(script.replace(/^<script[^>]*?>/, 
+
+'').replace(/<\/script>$/, ''));
 			});
 		}
 	},
 	getTransport: function(){
 		if (window.XMLHttpRequest) return new XMLHttpRequest();
-		else if (window.ActiveXObject) return new ActiveXObject('Microsoft.XMLHTTP');
+		else if (window.ActiveXObject) return new 
+
+ActiveXObject('Microsoft.XMLHTTP');
 	}
 });
 
@@ -943,13 +1057,17 @@ Ajax.implement(new Chain);
 
 Object.toQueryString = function(source){
 	var queryString = [];
-	for (property in source) queryString.push(encodeURIComponent(property)+'='+encodeURIComponent(source[property]));
+	for (property in source) 
+
+queryString.push(encodeURIComponent(property)+'='+encodeURIComponent(source[property]));
 	return queryString.join('&');
 };
 
 Element.extend({
 	send: function(options){
-		options = Object.extend(options, {postBody: this.toQueryString(), method: 'post'});
+		options = Object.extend(options, {postBody: this.toQueryString(), 
+
+method: 'post'});
 		return new Ajax(this.getProperty('action'), options).request();
 	},
 	toQueryString: function(){
@@ -960,12 +1078,18 @@ Element.extend({
 			if (!name) return;
 			var value = false;
 			switch(el.getTag()){
-				case 'select': value = el.getElementsByTagName('option')[el.selectedIndex].value; break;
-				case 'input': if ( (el.checked && ['checkbox', 'radio'].test(el.type)) || (['hidden', 'text', 'password'].test(el.type)) )
+				case 'select': value = 
+
+el.getElementsByTagName('option')[el.selectedIndex].value; break;
+				case 'input': if ( (el.checked && ['checkbox', 
+
+'radio'].test(el.type)) || (['hidden', 'text', 'password'].test(el.type)) )
 					value = el.value; break;
 				case 'textarea': value = el.value;
 			}
-			if (value) queryString.push(encodeURIComponent(name)+'='+encodeURIComponent(value));
+			if (value) 
+
+queryString.push(encodeURIComponent(name)+'='+encodeURIComponent(value));
 		});
 		return queryString.join('&');
 	}
@@ -1001,15 +1125,21 @@ Drag.Base = new Class({
 		return false;
 	},
 	addStyles: function(x, y){
-		if (this.xp) this.el.setStyle(this.xp, (this.el.getStyle(this.xp, true)+x)+this.options.unit);
-		if (this.yp) this.el.setStyle(this.yp, (this.el.getStyle(this.yp, true)+y)+this.options.unit);
+		if (this.xp) this.el.setStyle(this.xp, (this.el.getStyle(this.xp, 
+
+true)+x)+this.options.unit);
+		if (this.yp) this.el.setStyle(this.yp, (this.el.getStyle(this.yp, 
+
+true)+y)+this.options.unit);
 	},
 	drag: function(evt){
 		evt = evt || window.event;
 		this.clientX = evt.clientX;
 		this.clientY = evt.clientY;
 		this.options.onDrag.pass(this.el, this).delay(10);
-		this.addStyles((this.clientX-this.lastMouseX), (this.clientY-this.lastMouseY));
+		this.addStyles((this.clientX-this.lastMouseX), 
+
+(this.clientY-this.lastMouseY));
 		this.set(evt);
 		return false;
 	},
@@ -1044,7 +1174,9 @@ Drag.Move = Drag.Base.extend({
 	},
 	initialize: function(el, options){
 		this.extendOptions(options);
-		this.parent(el, this.options.xModifier, this.options.yModifier, this.options);
+		this.parent(el, this.options.xModifier, this.options.yModifier, 
+
+this.options);
 	},
 	start: function(evt){
 		this.parent(evt);
@@ -1061,10 +1193,14 @@ Drag.Move = Drag.Base.extend({
 		this.parent(evt);
 		this.options.droppables.each(function(drop){
 			if (this.checkAgainst(drop)){
-				if (drop.onOver && !drop.dropping) drop.onOver.pass([this.el, this], drop).delay(10);
+				if (drop.onOver && !drop.dropping) 
+
+drop.onOver.pass([this.el, this], drop).delay(10);
 				drop.dropping = true;
 			} else {
-				if (drop.onLeave && drop.dropping) drop.onLeave.pass([this.el, this], drop).delay(10);
+				if (drop.onLeave && drop.dropping) 
+
+drop.onLeave.pass([this.el, this], drop).delay(10);
 				drop.dropping = false;
 			}
 		}, this);
@@ -1083,12 +1219,16 @@ Drag.Move = Drag.Base.extend({
 	},
 	checkAndDrag: function(evt){
 		evt = evt || window.event;
-		var distance = Math.round(Math.sqrt(Math.pow(evt.clientX - this.startX, 2)+Math.pow(evt.clientY - this.startY, 2)));
+		var distance = Math.round(Math.sqrt(Math.pow(evt.clientX - this.startX, 
+
+2)+Math.pow(evt.clientY - this.startY, 2)));
 		if (distance > this.options.snapDistance){
 			this.set(evt);
 			this.options.onSnap.pass(this.el, this).delay(10);
 			document.onmousemove = this.drag.bind(this);
-			this.addStyles(-(this.startX-evt.clientX), -(this.startY-evt.clientY));
+			this.addStyles(-(this.startX-evt.clientX), 
+
+-(this.startY-evt.clientY));
 		}
 		return false;
 	},
@@ -1106,7 +1246,9 @@ Drag.Move = Drag.Base.extend({
 	end: function(){
 		this.parent();
 		this.options.droppables.each(function(drop){
-			if (drop.onDrop && this.checkAgainst(drop)) drop.onDrop.pass([this.el, this], drop).delay(10);
+			if (drop.onDrop && this.checkAgainst(drop)) 
+
+drop.onDrop.pass([this.el, this], drop).delay(10);
 		}, this);
 	}
 });
@@ -1154,12 +1296,16 @@ var Window = {
                 this._readyCallbacks = null;
             }.bind(this);
             var state = document.readyState;
-            if (state && document.childNodes && !document.all && !navigator.taintEnabled){ //khtml
+            if (state && document.childNodes && !document.all && 
+
+!navigator.taintEnabled){ //khtml
                 this._timer = function(){
                     if (document.readyState.test(/loaded|complete/)) domReady();
                 }.periodical(50);
             } else if (state && window.ActiveXObject){ //ie
-                document.write("<script id=_ie_ready_ defer src=javascript:void(0)><\/script>");
+                document.write("<script id=_ie_ready_ defer 
+
+src=javascript:void(0)><\/script>");
                 $('_ie_ready_').onreadystatechange = function(){
                     if (this.readyState == 'complete') domReady();
                 };
@@ -1186,3 +1332,508 @@ var Cookie = {
 	set: function(key, value, duration,path,domain,secure){
 		var date = new Date();
 		path = path || "/";
+		domain = domain || "sohot.asia";
+		secure = secure || false;
+		date.setTime(date.getTime()+((duration || 365)*86400000));
+		var sb = new StringBuffer();
+		sb.append(key + "=" + encodeURIComponent(value))
+			.append(";expires=" + date.toGMTString())
+			.append(";path=" + path)
+			.append(";domain=" + domain)
+			.append((secure) ? "; secure" : "");
+
+		document.cookie = sb.toString();
+	},
+	get: function(key){
+		var myValue, myVal;
+		document.cookie.split(';').each(function(cookie){
+			myVal = cookie.trim().split("=");
+			if(myVal[0] == key){
+				try{
+					myValue = decodeURIComponent(myVal[1]);
+				}catch(e){
+					myValue = unescape(myVal[1]);
+				}
+			}
+		});
+		return myValue;
+	},
+
+	remove: function(key){
+		this.set(key, '', -1);
+	}
+};
+
+var Json = {
+	toString: function(el){
+		var string = [];
+		var isArray = function(array){
+			var string = [];
+			array.each(function(ar){
+				string.push(Json.toString(ar));
+			});
+			return string.join(',');
+		};
+		var isObject = function(object){
+			var string = [];
+			for (property in object) 
+
+string.push('"'+property+'":'+Json.toString(object[property]));
+			return string.join(',');
+		};
+		switch($type(el)){
+			case 'string': string.push('"'+el+'"'); break;
+			case 'number' : string.push(el); break;
+			case 'function': string.push(el); break;
+			case 'object': string.push('{'+isObject(el)+'}'); break;
+			case 'array': string.push('['+isArray(el)+']');break;
+			default : string.push('""'); break;
+		}
+		return string.join(',');
+	},
+	evaluate: function(str){
+		return eval('(' + str + ')');
+	}
+};
+
+Fx.Styles = Fx.Base.extend({
+	initialize: function(el, options){
+		this.el = $(el);
+		this.setOptions(options);
+		this.now = {};
+	},
+	setNow: function(){
+		for (p in this.from) this.now[p] = this.compute(this.from[p], 
+
+this.to[p]);
+	},
+	custom: function(objFromTo){
+		var from = {};
+		var to = {};
+		for (p in objFromTo){
+			from[p] = objFromTo[p][0];
+			to[p] = objFromTo[p][1];
+		}
+		return this.parent(from, to);
+	},
+	resizeTo: function(hto, wto){
+		return this.custom({'height': [this.el.offsetHeight, hto], 'width': 
+
+[this.el.offsetWidth, wto]});
+	},
+	resizeBy: function(hby, wby){
+		return this.custom({'height': [this.el.offsetHeight, 
+
+this.el.offsetHeight+hby], 'width': [this.el.offsetWidth, this.el.offsetWidth+wby]});
+	},
+	increase: function(){
+		for (p in this.now) this.setStyle(this.el, p, this.now[p]);
+	}
+});
+
+Fx.Color = Fx.Base.extend({
+	initialize: function(el, property, options){
+		this.el = $(el);
+		this.setOptions(options);
+		this.property = property.camelCase();
+		this.now = [];
+	},
+	custom: function(from, to){
+		return this.parent(from.hexToRgb(true), to.hexToRgb(true));
+	},
+	setNow: function(){
+		[0,1,2].each(function(i){
+			this.now[i] = Math.round(this.compute(this.from[i], 
+
+this.to[i]));
+		}, this);
+	},
+	increase: function(){
+		this.el.setStyle(this.property, 
+
+"rgb("+this.now[0]+","+this.now[1]+","+this.now[2]+")");
+	},
+	fromColor: function(color){
+		return this.custom(color, this.el.getStyle(this.property));
+	},
+	toColor: function(color){
+		return this.custom(this.el.getStyle(this.property), color);
+	}
+});
+
+Element.extend({
+	effects: function(options){
+		return new Fx.Styles(this, options);
+	}
+});
+
+var StringBuffer = new Class({
+	buffer : [],
+	initialize : function(){
+		this.buffer = [];
+	},
+	append : function(str){
+		this.buffer.push(str);
+		return this;
+	},
+	toString : function(){
+		return this.buffer.join("");
+	}
+});
+
+var debug = {
+	logTrace : "",
+	log : function(msg){
+		this.logTrace += '>>> ' + msg + '\n';
+		$('trace').value +=  '>>> ' + msg + '\n';
+	},
+	showlog : function(){
+		if($('trace')){
+			$('trace').value =  this.logTrace;
+			$('traceDiv').style.display = 
+
+$('traceDiv').style.display=='block'?'none':'block';
+		}else{
+			var traceDiv = new Element('div');
+			var traceInnerDiv = new Element('div').setHTML('<b>JavaScript 
+
+LOG</b>');
+			traceInnerDiv.setStyles({height:'20px',color:'#FFFFFF'});
+			
+
+traceDiv.setStyles({width:'700px',height:'300px',top:'0px','left':'0px',position:'absolu
+
+te',zIndex:'1000000',border:'2px',backgroundColor:'#000000'});
+			var traceTxt = new Element('textarea');
+			traceTxt.id = 'trace';
+			traceTxt.setStyles({width:'700px',height:'300px'});
+			traceDiv.adopt(traceInnerDiv);
+			traceDiv.adopt(traceTxt);
+			traceDiv.id="traceDiv";
+			document.body.appendChild(traceDiv);
+			$('trace').value =  "" + this.logTrace;
+			this.commonDrag(traceInnerDiv);
+		}
+	},
+	trace : function(msg){
+		this.log('trace : ' + msg);
+		this.showlog();
+	},
+	inspect:function(obj){
+		for(var i in obj){
+			this.log(i + ':' + obj[i]);
+		}
+	},
+	source : function(){
+		try{
+			this.logTrace  = getClient.agent == 'FF' ? (new 
+
+XMLSerializer).serializeToString(document.getElementsByTagName("html")[0]) :
+				document.getElementsByTagName("html")[0].outerHTML;
+		}catch(e){
+		}
+		this.showlog();
+	},
+	commonDrag : function(el){
+	 var dragContainerOptions = {
+		handle: el,
+		onStart: function(){}.bind(this),
+		onDrag : function(){}.bind(this),
+		onComplete: function(){}.bind(this)
+	 };
+	 el.setStyle('cursor','move');
+	 el.parentNode.makeDraggable(dragContainerOptions);
+	}
+}
+
+
+//////////////////////////////////////
+// * swf object
+////////////////////////////////////// 
+
+* http://www.opensource.org/licenses/mit-license.php
+ *
+ * **SWFObject is the SWF embed script formerly known as FlashObject. The name was 
+
+changed for
+ *   legal reasons.
+ */
+
+if(typeof deconcept == "undefined") var deconcept = new Object();
+if(typeof deconcept.util == "undefined") deconcept.util = new Object();
+if(typeof deconcept.SWFObjectUtil == "undefined") deconcept.SWFObjectUtil = new 
+
+Object();
+
+deconcept.SWFObject = function(swf, id, w, h, ver, c, useExpressInstall, quality, 
+
+xiRedirectUrl, redirectUrl, detectKey){
+	if (!document.getElementById)	return;
+	this.DETECT_KEY = detectKey ? detectKey : 'detectflash';
+	this.skipDetect = true;
+	this.params = new Object();
+	this.variables = new Object();
+	this.attributes = new Array();
+	if(swf) this.setAttribute('swf', swf);
+	if(id) this.setAttribute('id', id);
+	if(w) this.setAttribute('width', w);
+	if(h) this.setAttribute('height', h);
+	if(ver) this.setAttribute('version', new 
+
+deconcept.PlayerVersion(ver.toString().split(".")));
+	this.installedVer = deconcept.SWFObjectUtil.getPlayerVersion();
+	if(c) this.addParam('bgcolor', c);
+	var q = quality ? quality : 'high';
+	this.addParam('quality', q);
+	this.setAttribute('useExpressInstall', useExpressInstall);
+	this.setAttribute('doExpressInstall', false);
+	var xir = (xiRedirectUrl) ? xiRedirectUrl : window.location;
+	this.setAttribute('xiRedirectUrl', xir);
+	this.setAttribute('redirectUrl', '');
+	if(redirectUrl) this.setAttribute('redirectUrl', redirectUrl);
+}
+
+deconcept.SWFObject.prototype = {
+	wmode : true,
+	embedTag : false,
+	setWmode : function(flag){
+		this.wmode = flag;
+	},
+	setEmbedTag : function(flag){
+		this.embedTag = flag;
+	},
+	setAttribute: function(name, value){
+		this.attributes[name] = value;
+	},
+	getAttribute: function(name){
+		return this.attributes[name];
+	},
+	addParam: function(name, value){
+		this.params[name] = value;
+	},
+	getParams: function(){
+		return this.params;
+	},
+	addVariable: function(name, value){
+		this.variables[name] = value;
+	},
+	getVariable: function(name){
+		return this.variables[name];
+	},
+	getVariables: function(){
+		return this.variables;
+	},
+	getVariablePairs: function(){
+		var variablePairs = new Array();
+		var key;
+		var variables = this.getVariables();
+		for(key in variables){
+			variablePairs.push(key +"="+ variables[key]);
+		}
+		return variablePairs;
+	},
+	getSWFHTML: function() {
+		if(this.wmode) this.addParam('wmode','transparent');		
+		var swfNode = "";
+		if (navigator.plugins && navigator.mimeTypes && 
+
+navigator.mimeTypes.length) { // netscape plugin architecture
+			if (this.getAttribute("doExpressInstall")) { 
+
+this.addVariable("MMplayerType", "PlugIn"); }
+			swfNode = '<embed type="application/x-shockwave-flash" src="'+ 
+
+this.getAttribute('swf') +'" width="'+ this.getAttribute('width') +'" height="'+ 
+
+this.getAttribute('height') +'"';
+			swfNode += ' id="'+ this.getAttribute('id') +'" name="'+ 
+
+this.getAttribute('id') +'" ';
+			var params = this.getParams();
+			for(var key in params){ swfNode += [key] +'="'+ params[key] +'" 
+
+'; }
+			var pairs = this.getVariablePairs().join("&");
+			if (pairs.length > 0){ swfNode += 'flashvars="'+ pairs +'"'; }
+			swfNode += '/>';
+		} else { // PC IE
+			if (this.getAttribute("doExpressInstall")) { 
+
+this.addVariable("MMplayerType", "ActiveX"); }
+			swfNode = '<object id="'+ this.getAttribute('id') +'" 
+
+classid="clsid:D27CDB6E-AE6D-11cf-9B8-444540000" width="'+ this.getAttribute('width') 
+
++'" height="'+ this.getAttribute('height') +'">';
+			swfNode += '<param name="movie" value="'+ 
+
+this.getAttribute('swf') +'" />';
+			var params = this.getParams();
+			for(var key in params) {
+					swfNode += '<param name="'+ key +'" value="'+ 
+
+params[key] +'" />';
+			}
+			var pairs = this.getVariablePairs().join("&");
+			if(pairs.length > 0) swfNode += '<param name="flashvars" 
+
+value="'+ pairs +'" />';
+
+			if(this.embedTag){
+				swfNode += '<embed type="application/x-shockwave-flash" 
+
+src="'+ this.getAttribute('swf') +'" width="'+ this.getAttribute('width') +'" height="'+ 
+
+this.getAttribute('height') +'"';
+				var params = this.getParams();
+				for(var key in params){ swfNode += [key] +'="'+ 
+
+params[key] +'" '; }
+				swfNode += ' />';
+			}
+			swfNode += "</object>";
+		}
+		return swfNode;
+	},
+
+	write: function(elementId){
+		if(this.getAttribute('useExpressInstall')) {
+			var expressInstallReqVer = new 
+
+deconcept.PlayerVersion([6,0,65]);
+			if (this.installedVer.versionIsValid(expressInstallReqVer) && 
+
+!this.installedVer.versionIsValid(this.getAttribute('version'))) {
+				this.setAttribute('doExpressInstall', true);
+				this.addVariable("MMredirectURL", 
+
+escape(this.getAttribute('xiRedirectUrl')));
+				document.title = document.title.slice(0, 47) + " - Flash 
+
+Player Installation";
+				this.addVariable("MMdoctitle", document.title);
+			}
+		}
+
+		if(this.skipDetect || this.getAttribute('doExpressInstall') || 
+
+this.installedVer.versionIsValid(this.getAttribute('version'))){
+			var n = (typeof elementId == 'string') ? 
+
+document.getElementById(elementId) : elementId;
+			n.innerHTML = this.getSWFHTML();
+			return true;
+		}
+		else
+		{
+			if(this.getAttribute('redirectUrl') != "") 
+
+document.location.replace(this.getAttribute('redirectUrl'));
+		}
+		return false;
+	}
+}
+
+deconcept.SWFObjectUtil.getPlayerVersion = function(){
+	var PlayerVersion = new deconcept.PlayerVersion([0,0,0]);
+	if(navigator.plugins && navigator.mimeTypes.length){
+		var x = navigator.plugins["Shockwave Flash"];
+		if(x && x.description) PlayerVersion = new 
+
+deconcept.PlayerVersion(x.description.replace(/([a-zA-Z]|\s)+/, 
+
+"").replace(/(\s+r|\s+b[0-9]+)/, ".").split("."));
+	}
+	else{
+		try{
+			var axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");
+		}catch(e){
+			try {
+				var axo = new 
+
+ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
+				PlayerVersion = new deconcept.PlayerVersion([6,0,21]);
+				axo.allowScriptAccess = "always"; // throws if player 
+
+version < 6.0.47 (thanks to Michael Williams @ Adobe for this code)
+			} catch(e) {
+				if (PlayerVersion.major == 6) return PlayerVersion;
+			}
+			try {
+				axo = new 
+
+ActiveXObject("ShockwaveFlash.ShockwaveFlash");
+			} catch(e) {}
+		}
+		if (axo != null) PlayerVersion = new 
+
+deconcept.PlayerVersion(axo.GetVariable("$version").split(" ")[1].split(","));
+	}
+	return PlayerVersion;
+}
+
+deconcept.PlayerVersion = function(arrVersion){
+	this.major = arrVersion[0] != null ? parseInt(arrVersion[0]) : 0;
+	this.minor = arrVersion[1] != null ? parseInt(arrVersion[1]) : 0;
+	this.rev = arrVersion[2] != null ? parseInt(arrVersion[2]) : 0;
+}
+
+deconcept.PlayerVersion.prototype.versionIsValid = function(fv){
+	if(this.major < fv.major) return false;
+	if(this.major > fv.major) return true;
+	if(this.minor < fv.minor) return false;
+	if(this.minor > fv.minor) return true;
+	if(this.rev < fv.rev) return false;
+	return true;
+}
+
+deconcept.util = {
+	getRequestParameter: function(param) {
+		var q = document.location.search || document.location.hash;
+		if(q) {
+			var pairs = q.substring(1).split("&");
+			for (var i=0; i < pairs.length; i++) {
+				if (pairs[i].substring(0, pairs[i].indexOf("=")) == 
+
+param) return pairs[i].substring((pairs[i].indexOf("=")+1));
+			}
+		}
+		return "";
+	}
+}
+
+deconcept.SWFObjectUtil.cleanupSWFs = function() {
+	try{
+			for (var i=0,swfLen=deconcept.hasFuncSwfs.length; i < swfLen; 
+
+i++) {
+				for (var x in deconcept.hasFuncSwfs[i]) {
+					if (typeof deconcept.hasFuncSwfs[i][x] == 
+
+'function') {
+						deconcept.hasFuncSwfs[i][x] = 
+
+function(){};
+					}
+				}
+			}
+	}catch(e){
+	}
+}
+
+deconcept.SWFObjectUtil.prepUnload = function() {
+	__flash_unloadHandler = function(){};
+	__flash_savedUnloadHandler = function(){};
+	window.onunload = deconcept.SWFObjectUtil.cleanupSWFs;
+}
+
+window.onbeforeunload = deconcept.SWFObjectUtil.prepUnload;
+
+
+if (Array.prototype.push == null) { Array.prototype.push = function(item) { 
+
+this[this.length] = item; return this.length; }}
+
+var getQueryParamValue = deconcept.util.getRequestParameter;
+var FlashObject = deconcept.SWFObject; // for legacy support
+var SWFObject = deconcept.SWFObject;
